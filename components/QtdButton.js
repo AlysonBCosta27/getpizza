@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Alert, Linking} from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
-const QtdButton = () => {
+const QtdButton = (props) => {
 
     const [qtd, setQtd] = useState(1);
+    const [showAlert, setShowAlert] = useState(false);
 
     const addPizza = () => {
         setQtd(qtd+1);
@@ -13,6 +15,15 @@ const QtdButton = () => {
         if(qtd>0){
             setQtd(qtd-1);
         }   
+    }
+
+    const sendMessage = () => {
+        const message = `Olá, gostaria de fazer um pedido.
+        Quero ${qtd} pizza de ${props.name}`;
+
+        const url = `whatsapp://send?text=${message}&phone=5516988450455`;
+
+        Linking.openURL(url);
     }
 
     return(
@@ -33,11 +44,30 @@ const QtdButton = () => {
                     <Text style={styles.textBtn}>+</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>{setShowAlert(!showAlert)}}
+            >
                 <View style={styles.addButton}>
                     <Text style={styles.whiteText}>Adicionar ao Carrinho</Text>
                 </View>
             </TouchableOpacity>
+            <AwesomeAlert
+                show={showAlert}
+                title="Finalizar pedido"
+                message="Deseja finalizar o pedido?"
+                showCancelButton={true}
+                showConfirmButton={true}
+                cancelText="Continuar comprando"
+                confirmText="Finalizar pedido"
+                confirmButtonColor="#97dc91"
+                onConfirmPressed={()=>{
+                    sendMessage();
+                }}
+                onCancelPressed={()=>{
+                    setShowAlert(!showAlert);
+                }}
+                closeOnHardwareBackPress={false} //para quando eu pressionar Voltar, não bugar o alerta.
+            />
         </View>
     )
 }

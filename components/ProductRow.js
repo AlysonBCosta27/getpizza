@@ -1,12 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, ImagePropTypes, StyleSheet, Text, View } from 'react-native';
 import QtdButton from './QtdButton';
 
 
 const ProductRow = (props)=>{
     return(
-        <View>
-            <View style={styles.card}>
+        <View style={styles.card}>
+            <View style={styles.topCard}>
                 <View style={styles.left}>
                     <View style={styles.titleAndPrice}>
                         <Text style={styles.title}>{props.name}</Text>
@@ -20,7 +20,9 @@ const ProductRow = (props)=>{
                     <Image source={{uri: props.img}} style={styles.image}/>
                 </View>
             </View>
-            <QtdButton/>
+            <View style={styles.buttonMargin}>
+                <QtdButton name={props.name}/>
+            </View>
         </View>
     )
 }
@@ -30,13 +32,11 @@ const styles = StyleSheet.create({
         marginTop: 25,
         marginBottom: 5,
         flex: 1,
-        flexDirection: "row",
-        
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset:{
-            width: 0,
-            height: -5
+        width: 0,
+        height: -5
         },
         shadowOpacity: 0.1,
         shadowRadius: 20,
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         marginHorizontal: 10,
         overflow: "hidden"
+    },
+    topCard:{
+        flex: 1,
+        flexDirection: "row"
     },
     title:{
         fontSize: 20,
@@ -61,9 +65,6 @@ const styles = StyleSheet.create({
         flex: 3,
         paddingHorizontal: 10
     },
-    right:{
-        flex: 1
-    },
     price:{
         fontSize: 15,
         color: "#e22424",
@@ -73,6 +74,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
+    },
+    buttonMargin:{
+        flex: 1,
+        marginVertical: 15
     }
 });
 

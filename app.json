@@ -23,7 +23,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "br.com.alysonbc.getpizza",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
