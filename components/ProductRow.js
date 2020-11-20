@@ -1,25 +1,36 @@
 import React from 'react';
 import { Image, ImagePropTypes, StyleSheet, Text, View } from 'react-native';
 import QtdButton from './QtdButton';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+
 
 
 const ProductRow = (props)=>{
+
+    const navigation = useNavigation ();
+    const navigateToDetails = () => {
+        navigation.navigate('Details',{props});
+    };
+
     return(
         <View style={styles.card}>
-            <View style={styles.topCard}>
-                <View style={styles.left}>
-                    <View style={styles.titleAndPrice}>
-                        <Text style={styles.title}>{props.name}</Text>
-                        <Text style={styles.price}>R$ {props.price}</Text>
+            <TouchableOpacity onPress={navigateToDetails}>
+                <View style={styles.topCard}>
+                    <View style={styles.left}>
+                        <View style={styles.titleAndPrice}>
+                            <Text style={styles.title}>{props.name}</Text>
+                            <Text style={styles.price}>R$ {props.price}</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.desc}>{props.desc}</Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={styles.desc}>{props.desc}</Text>
+                    <View style={styles.right}>
+                        <Image source={{uri: props.img}} style={styles.image}/>
                     </View>
                 </View>
-                <View style={styles.right}>
-                    <Image source={{uri: props.img}} style={styles.image}/>
-                </View>
-            </View>
+            </TouchableOpacity>
             <View style={styles.buttonMargin}>
                 <QtdButton name={props.name}/>
             </View>

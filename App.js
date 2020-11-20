@@ -1,38 +1,20 @@
 import React from 'react';
-import {View, StyleSheet, Image, TouchableOpacity, FlatList, Text} from 'react-native';
-import GetPizzaHeader from './components/GetPizzaHeader';
-import ProductRow from './components/ProductRow';
-import pizzas from './data/pizzas'
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Home from './pages/Home';
+import Details from './pages/Details';
 
+const Stack = createStackNavigator();
 
 const App = () => {
   return(
-    <View style={styles.container}>
-      <GetPizzaHeader/>
-      <FlatList
-        data={pizzas}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) =>
-          <ProductRow
-            name={item.name}
-            desc={item.desc}
-            img= {item.img}
-            price= {item.price}
-          />
-        }
-      />
-
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={Details} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
-const styles = StyleSheet.create({
-  container:{
-    flex:1
-  },
-  logo:{
-    width:30,
-    height: 30
-  }
-});
 
 export default App;
